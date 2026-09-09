@@ -59,8 +59,8 @@ function ExpertiseMenu({ isVisible, onClose }) {
   if (!isVisible) return null;
 
   return (
-    <div className="absolute left-1/2 top-full w-[min(calc(100vw-2rem),1180px)] -translate-x-1/2 pt-3">
-      <div className="rounded-[22px] border border-[#081a33]/10 bg-[#faf9f5]/97 px-10 py-8 shadow-[0_28px_64px_rgba(8,26,51,0.14)] backdrop-blur-2xl">
+    <div className="absolute left-1/2 top-full z-[60] isolate w-[min(calc(100vw-2rem),1180px)] -translate-x-1/2 pt-3">
+      <div className="navigation-glass-panel rounded-[22px] px-10 py-8">
         <div className="mb-8 flex items-center justify-between">
           <p className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#7a6840]"><span className="h-2 w-2 bg-[#f4be32]" />{tr('Nos expertises', 'Our expertise', 'Nuestra experiencia')}</p>
           <Link to="/expertise" onClick={onClose} className="text-sm font-extrabold text-[#081a33] underline decoration-[#f4be32] decoration-2 underline-offset-4">

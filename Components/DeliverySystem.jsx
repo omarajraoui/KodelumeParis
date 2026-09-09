@@ -68,6 +68,9 @@ function DeliverySystem() {
 
       <svg className="delivery-system__route" viewBox="0 0 1000 190" preserveAspectRatio="none" aria-hidden="true">
         <path d="M62 142C172 142 222 66 374 66S515 128 626 128 764 42 938 42" />
+        <circle className="delivery-system__traveller" r="5">
+          <animateMotion dur="7s" repeatCount="indefinite" path="M62 142C172 142 222 66 374 66S515 128 626 128 764 42 938 42" />
+        </circle>
       </svg>
 
       <ol className="delivery-system__steps">

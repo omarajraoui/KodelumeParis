@@ -21,6 +21,20 @@ function ArrowIcon() {
   );
 }
 
+function ShopifyMark() {
+  return <a className="shopify-lockup" href="https://www.shopify.com/" target="_blank" rel="noreferrer" aria-label="Shopify"><img src="https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-primary-logo-456baa801ee66a0a435671082365958316831c9960c480451dd0330bcdae304f.svg" alt="Shopify" loading="lazy" decoding="async" /></a>;
+}
+
+function CraftVisual({ number }) {
+  const visuals = {
+    '01': <><rect x="10" y="10" width="78" height="50" rx="3" /><path d="M18 20h62M18 31h26M18 40h38M18 49h18" /><circle cx="97" cy="23" r="8" /><path d="m93 23 3 3 5-6" /></>,
+    '02': <><path d="M10 50c14-25 26 17 40-7s25 15 43-20" /><circle cx="10" cy="50" r="4" /><circle cx="50" cy="43" r="4" /><circle cx="93" cy="23" r="4" /><path d="M10 65h84" /></>,
+    '03': <><path d="M12 55V18h72v37Z" /><path d="M12 27h72M22 22h2M29 22h2M40 39h15M40 46h25" /><path d="m65 38 7 7-7 7" /></>,
+    '04': <><circle cx="47" cy="39" r="25" /><path d="M47 14v50M22 39h50M30 22c10 8 24 8 34 0M30 56c10-8 24-8 34 0" /><circle cx="47" cy="39" r="4" /></>,
+  };
+  return <div className="craft-visual" aria-hidden="true"><svg viewBox="0 0 110 72">{visuals[number]}</svg><span>{number}</span></div>;
+}
+
 function MaisonBenjellounProject() {
   const { translate: tr } = useLanguage();
   const projectDetails = getProjectDetails(tr);
@@ -38,7 +52,7 @@ function MaisonBenjellounProject() {
 
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
             <div className="text-center lg:text-left">
-              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#2447d8]">Art · Shopify Headless · Expérience 3D</p>
+              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#2447d8]">Art · Shopify Headless · {tr('Expérience 3D','3D experience','Experiencia 3D')}</p>
               <h1 className="mt-6 font-heading text-[clamp(3.15rem,14vw,8.5rem)] font-black leading-[0.82] tracking-[-0.068em] lg:leading-[0.77]">
                 Maison<br />Benjelloun
               </h1>
@@ -71,16 +85,17 @@ function MaisonBenjellounProject() {
       </section>
 
       <section className="px-5 py-16 sm:px-10 sm:py-24 lg:px-16">
-        <div className="mx-auto grid max-w-[1440px] overflow-hidden rounded-xl bg-[#2447d8] text-white lg:grid-cols-[0.55fr_1.45fr]">
-          <div className="flex min-h-56 flex-col justify-between border-b border-white/15 p-7 lg:border-b-0 lg:border-r lg:p-10">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">{tr('Le besoin client', 'Client need', 'Necesidad del cliente')}</span>
-            <span className="font-heading text-6xl font-black tracking-[-0.07em] text-[#f0bc2e]">Shopify</span>
+        <div className="shopify-case mx-auto grid max-w-[1440px] overflow-hidden rounded-2xl lg:grid-cols-[0.55fr_1.45fr]">
+          <div className="shopify-case__brand">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-black/40">{tr('Le besoin client', 'Client need', 'Necesidad del cliente')}</span>
+            <ShopifyMark />
+            <small>{tr('COMMERCE HEADLESS','HEADLESS COMMERCE','COMERCIO HEADLESS')}</small>
           </div>
-          <div className="p-7 sm:p-10 lg:p-14">
+          <div className="shopify-case__copy p-7 sm:p-10 lg:p-14">
             <h2 className="max-w-4xl font-heading text-3xl font-black leading-[1.04] tracking-[-0.045em] sm:text-5xl">
               {tr('Gérer toute la boutique et ajouter de nouvelles œuvres directement depuis son téléphone.', 'Manage the entire store and add new artwork directly from a phone.', 'Gestionar toda la tienda y añadir nuevas obras directamente desde el móvil.')}
             </h2>
-            <p className="mt-6 max-w-3xl text-base leading-7 text-white/65 sm:text-lg sm:leading-8">
+            <p className="mt-6 max-w-3xl text-base leading-7 text-black/55 sm:text-lg sm:leading-8">
               {tr('Shopify est utilisé comme back-office headless : le client retrouve une administration familière et mobile pour les produits, les prix, les stocks et les commandes, pendant que le site conserve une direction artistique et une expérience 3D entièrement personnalisées.', 'Shopify acts as the headless back office: the client gets familiar mobile management for products, pricing, stock and orders while the public site keeps its custom art direction and 3D experience.', 'Shopify funciona como back-office headless: el cliente gestiona productos, precios, stock y pedidos desde el móvil, mientras el sitio mantiene una dirección artística y experiencia 3D a medida.')}
             </p>
           </div>
@@ -99,6 +114,7 @@ function MaisonBenjellounProject() {
                 <article key={number} className="flex min-h-72 flex-col justify-between border-b border-black/15 p-6 sm:border-r sm:even:border-r-0">
                   <span className="font-mono text-[10px] font-bold text-black/30">{number}</span>
                   <div>
+                    <CraftVisual number={number} />
                     <h3 className="font-heading text-2xl font-black tracking-[-0.035em]">{title}</h3>
                     <p className="mt-4 text-sm font-medium leading-6 text-black/55">{description}</p>
                   </div>

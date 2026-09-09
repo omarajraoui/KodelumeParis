@@ -24,7 +24,7 @@ function TikTokTracking() {
         <p className="max-w-xl text-xs font-medium leading-5 text-black/65">KODELUME utilise, avec votre accord, un traceur TikTok pour mesurer l’efficacité des campagnes publicitaires. Vous pouvez accepter ou refuser sans conséquence sur la navigation.</p>
         <div className="flex shrink-0 gap-2">
           <button type="button" onClick={() => setMarketingConsent('denied')} className="rounded-lg border border-black/20 px-4 py-2.5 text-xs font-extrabold">Refuser</button>
-          <button type="button" onClick={() => setMarketingConsent('granted')} className="rounded-lg bg-[#171714] px-4 py-2.5 text-xs font-extrabold text-white hover:bg-[#176bff]">Accepter</button>
+          <button type="button" onClick={() => setMarketingConsent('granted')} className="rounded-lg bg-[#081a33] px-4 py-2.5 text-xs font-extrabold text-white hover:bg-[#f4be32] hover:text-[#081a33]">Accepter</button>
         </div>
       </div>
     </aside>

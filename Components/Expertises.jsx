@@ -79,71 +79,24 @@ function ArrowIcon() {
 }
 
 function ServiceVisual({ type }) {
-  const maps = {
-    web: {
-      code: 'ARCH / 01', title: 'Product architecture', note: 'Interface → services → data',
-      nodes: [[18, 25, 'UI'], [52, 25, 'API'], [84, 25, 'DATA'], [52, 73, 'OPS']],
-      paths: ['M25 25H45', 'M59 25H77', 'M52 32V66', 'M22 31C24 62 35 73 45 73'],
-    },
-    mobile: {
-      code: 'SYNC / 02', title: 'Mobile system', note: 'Terrain ↔ synchronisation',
-      nodes: [[18, 20, 'IOS'], [18, 76, 'AND'], [52, 48, 'SYNC'], [84, 20, 'API'], [84, 76, 'CACHE']],
-      paths: ['M25 20C38 20 39 39 45 45', 'M25 76C38 76 39 57 45 51', 'M59 45C65 39 66 20 77 20', 'M59 51C65 57 66 76 77 76'],
-    },
-    ai: {
-      code: 'RAG / 03', title: 'Intelligence layer', note: 'Sources → décision → action',
-      nodes: [[16, 27, 'SRC'], [45, 27, 'RAG'], [74, 27, 'LLM'], [74, 73, 'ACT'], [27, 73, 'EVAL']],
-      paths: ['M23 27H38', 'M52 27H67', 'M74 34V66', 'M67 73H34', 'M27 66C27 51 34 43 45 34'],
-    },
-    discovery: {
-      code: 'MAP / 04', title: 'Decision model', note: 'Risque réduit avant le code',
-      nodes: [[18, 25, 'USE'], [50, 25, 'RISK'], [82, 25, 'TEST'], [50, 73, 'SCOPE']],
-      paths: ['M25 25H43', 'M57 25H75', 'M82 32C81 58 67 73 57 73', 'M43 73C31 72 20 57 18 32'],
-    },
-  };
-  const map = maps[type] || maps.discovery;
-
-  return (
-    <div className="capability-map mt-10" role="img" aria-label={`${map.title}. ${map.note}`}>
-      <div className="capability-map__head"><span>{map.code}</span><i aria-hidden="true" /></div>
-      <strong>{map.title}</strong>
-      <svg viewBox="0 0 100 100" aria-hidden="true">
-        {map.paths.map((path) => <path key={path} className="capability-map__path" d={path} />)}
-        {map.nodes.map(([x, y, label]) => (
-          <g key={label} className="capability-map__node" transform={`translate(${x} ${y})`}>
-            <rect x="-7" y="-7" width="14" height="14" />
-            <text x="0" y="1.8" textAnchor="middle">{label}</text>
-          </g>
-        ))}
-      </svg>
-      <p>{map.note}</p>
-    </div>
-  );
+  if (type === 'ai') return <div className="service-v2 service-v2--ai" role="img" aria-label="Workflow IA automatisé"><svg viewBox="0 0 260 170"><path d="M41 44H91M117 44h45M188 44c25 0 25 42 2 42h-15M150 86h-38M87 86H54M112 86c26 0 24 43 49 43h16"/><g transform="translate(16 27)"><rect width="50" height="34" rx="8"/><text x="25" y="21">INPUT</text></g><g transform="translate(91 27)" className="is-active"><rect width="50" height="34" rx="8"/><text x="25" y="21">RAG</text></g><g transform="translate(162 27)"><rect width="50" height="34" rx="8"/><text x="25" y="21">MODEL</text></g><g transform="translate(150 69)"><rect width="50" height="34" rx="8"/><text x="25" y="21">CHECK</text></g><g transform="translate(62 69)"><rect width="50" height="34" rx="8"/><text x="25" y="21">RULES</text></g><g transform="translate(177 112)" className="is-output"><rect width="60" height="34" rx="8"/><text x="30" y="21">ACTION</text></g></svg><div><span>WORKFLOW / ACTIVE</span><i/><b>6 modules · 1 validation</b></div></div>;
+  if (type === 'mobile') return <div className="service-v2 service-v2--mobile" role="img" aria-label="Application mobile synchronisée"><div className="service-mobile__phone"><i/><span>FIELD APP</span><b>12</b><small>actions synced</small><em><u/><u/><u/></em></div><div className="service-mobile__sync"><span>→</span><i>SYNC</i><span>←</span></div><div className="service-mobile__stack"><b>API</b><b>OFFLINE</b><b>NOTIFY</b></div></div>;
+  if (type === 'web') return <div className="service-v2 service-v2--web" role="img" aria-label="Architecture d’une plateforme web"><div className="service-web__bar"><i/><i/><i/><span>product.kodelume</span></div><div className="service-web__body"><aside><b/><b/><b/><b/></aside><main><div><span>ACTIVE USERS</span><strong>2,408</strong><em>+18%</em></div><svg viewBox="0 0 170 55"><path d="M2 45 30 34 53 39 82 18 106 25 135 9 168 14"/></svg><footer><i/><i/><i/></footer></main></div></div>;
+  return <div className="service-v2 service-v2--scope" role="img" aria-label="Matrice de cadrage produit"><div className="service-scope__axis"><span>IMPACT</span><span>EFFORT →</span></div><div className="service-scope__grid"><i className="one">01</i><i className="two">02</i><i className="three">03</i><i className="four">04</i></div><b>PRIORITY / 01</b></div>;
 }
 
-function BlueprintFigure() {
+function BlueprintFigure({ tr }) {
   return (
-    <div className="relative min-h-[360px] overflow-hidden border border-[#071a3b]/15 bg-white/55 text-[#071a3b] sm:min-h-[430px]">
-      <p className="absolute left-7 top-5 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[#071a3b]/45 sm:left-10">Plan 01 — parcours de réalisation</p>
-      <svg className="absolute inset-x-5 top-14 h-[calc(100%-5rem)] w-[calc(100%-2.5rem)] sm:inset-x-8 sm:w-[calc(100%-4rem)]" viewBox="0 0 720 420" role="img" aria-label="Processus KODELUME : besoin, étude et UML, design, développement, tests puis mise en ligne">
-        <title>Du besoin à la mise en ligne</title>
-        <path className="blueprint-process-line" d="M72 103H210V206H350V103H490V206H638" fill="none" stroke="rgba(7,26,59,.32)" strokeWidth="1.5" />
-        {[
-          [72, 103, '01', 'BESOIN', 'Objectifs'], [210, 206, '02', 'ÉTUDE + UML', 'Flux & règles'],
-          [350, 103, '03', 'DESIGN', 'Parcours & UI'], [490, 206, '04', 'DÉVELOPPEMENT', 'Produit réel'],
-          [638, 206, '05', 'TESTS', 'Qualité'], [638, 325, '06', 'MISE EN LIGNE', 'Mesure & suivi'],
-        ].map(([x, y, number, title, note]) => (
-          <g key={number} transform={`translate(${x} ${y})`}>
-            <rect x="-61" y="-36" width="122" height="72" rx="3" fill="rgba(255,255,255,.72)" stroke="rgba(7,26,59,.32)" />
-            <rect className="process-node-pulse" x="-61" y="-36" width="8" height="8" fill="#ffd21c" />
-            <text x="-46" y="-13" fill="rgba(7,26,59,.4)" fontSize="9" fontWeight="700" letterSpacing="1.5">{number}</text>
-            <text x="-46" y="7" fill="#071a3b" fontSize={title.length > 12 ? 10 : 12} fontWeight="800">{title}</text>
-            <text x="-46" y="24" fill="rgba(7,26,59,.52)" fontSize="9">{note}</text>
-          </g>
-        ))}
-        <path className="blueprint-process-line" d="M638 242V289" fill="none" stroke="rgba(7,26,59,.32)" strokeWidth="1.5" />
-      </svg>
-      <p className="absolute bottom-4 right-7 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[#071a3b]/45 sm:right-10">Méthode KODELUME / v1</p>
+    <div className="expertise-system expertise-system--v2" role="img" aria-label={tr('Du besoin au produit en production', 'From business need to live product', 'De la necesidad al producto en producción')}>
+      <div className="expertise-system__head"><span>PRODUCT DELIVERY / LIVE MAP</span><i /> <b>4 STAGES</b></div>
+      <div className="expertise-system__canvas">
+        <svg viewBox="0 0 640 360" aria-hidden="true"><path d="M65 180H175C215 180 211 92 255 92H380C428 92 417 258 468 258H575" /><path d="M255 92c0 84 5 88-51 88M380 92c0 85 8 166 88 166"/><circle cx="65" cy="180" r="5" /><circle cx="255" cy="92" r="5" /><circle cx="468" cy="258" r="5" /><circle cx="575" cy="258" r="5" /></svg>
+        <div className="expertise-system__card expertise-system__card--one"><span>01</span><strong>{tr('Cadrage', 'Scope', 'Definición')}</strong><small>{tr('Besoin · usages · risque', 'Need · users · risk', 'Necesidad · usos · riesgo')}</small></div>
+        <div className="expertise-system__card expertise-system__card--two"><span>02</span><strong>{tr('Prototype', 'Prototype', 'Prototipo')}</strong><small>UX · UI · VALIDATION</small></div>
+        <div className="expertise-system__card expertise-system__card--three"><span>03</span><strong>{tr('Produit', 'Product', 'Producto')}</strong><small>CODE · DATA · QA</small></div>
+        <div className="expertise-system__result"><span>04</span><strong>LIVE</strong><i /></div><div className="expertise-system__signal"><i/><span>DECISION LOG</span><b>12</b></div>
+      </div>
+      <div className="expertise-system__foot"><span>{tr('Décisions visibles', 'Visible decisions', 'Decisiones visibles')}</span><span>{tr('Validation continue', 'Continuous validation', 'Validación continua')}</span></div>
     </div>
   );
 }
@@ -168,25 +121,25 @@ function Expertise() {
               <h1 className="mt-7 max-w-5xl font-heading text-[clamp(3rem,13vw,8rem)] font-extrabold leading-[0.88] tracking-[-0.065em] lg:leading-[0.84]">{tr('Concevoir juste.', 'Design with purpose.', 'Diseñar con sentido.')}<br /><span className="text-[#8a6818]">{tr('Construire solide.', 'Build for the long run.', 'Construir para durar.')}</span></h1>
               <p className="mx-auto mt-8 max-w-2xl text-base font-medium leading-7 text-[#274363]/70 sm:text-xl sm:leading-8 lg:mx-0">{tr('KODELUME transforme un problème métier en produit web, mobile ou IA clair, utile et maintenable — avec un interlocuteur direct du premier croquis à la mise en ligne.', 'KODELUME turns a business problem into a clear, useful and maintainable web, mobile or AI product—with one direct contact from first sketch to launch.', 'KODELUME convierte un problema de negocio en un producto web, móvil o IA claro, útil y mantenible, con un contacto directo de principio a fin.')}</p>
               <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-                <Link to="/reserver-un-appel" className="inline-flex items-center justify-center gap-3 rounded-lg bg-[#071a3b] px-7 py-4 text-sm font-extrabold text-white transition hover:bg-[#176bff]">{tr('Exposer votre besoin', 'Discuss your needs', 'Cuéntanos tu necesidad')} <ArrowIcon /></Link>
-                <Link to="/projects/maison-benjelloun" className="inline-flex items-center justify-center gap-3 rounded-lg border border-[#071a3b]/20 px-7 py-4 text-sm font-extrabold transition hover:border-[#176bff] hover:text-[#176bff]">{tr('Voir un projet livré', 'View delivered work', 'Ver un proyecto realizado')} <ArrowIcon /></Link>
+                <Link to="/reserver-un-appel" className="inline-flex items-center justify-center gap-3 rounded-lg bg-[#081a33] px-7 py-4 text-sm font-extrabold text-white transition hover:bg-[#f4be32] hover:text-[#081a33]">{tr('Exposer votre besoin', 'Discuss your needs', 'Cuéntanos tu necesidad')} <ArrowIcon /></Link>
+                <Link to="/projects/maison-benjelloun" className="inline-flex items-center justify-center gap-3 rounded-lg border border-[#081a33]/20 px-7 py-4 text-sm font-extrabold transition hover:border-[#a27610] hover:text-[#8a6818]">{tr('Voir un projet livré', 'View delivered work', 'Ver un proyecto realizado')} <ArrowIcon /></Link>
               </div>
             </div>
-            <BlueprintFigure />
+            <BlueprintFigure tr={tr} />
           </div>
         </div>
       </section>
 
       <section className="border-b border-[#071a3b]/10 bg-white px-5 py-7 sm:px-10 lg:px-16">
         <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-x-8 gap-y-5 lg:grid-cols-4">
-          {['Interlocuteur direct', 'Cadrage avant le code', 'Cycles courts et visibles', 'Livraison documentée'].map((item, index) => <div key={item} className="flex items-center gap-3 text-xs font-extrabold text-[#274363]/70"><span className="font-mono text-[#176bff]">0{index + 1}</span>{item}</div>)}
+          {['Interlocuteur direct', 'Cadrage avant le code', 'Cycles courts et visibles', 'Livraison documentée'].map((item, index) => <div key={item} className="flex items-center gap-3 text-xs font-extrabold text-[#274363]/70"><span className="font-mono text-[#a27610]">0{index + 1}</span>{item}</div>)}
         </div>
       </section>
 
       <section className="px-5 py-24 sm:px-10 sm:py-32 lg:px-16">
         <div className="mx-auto max-w-[1280px]">
           <div className="grid gap-8 border-b border-[#071a3b]/20 pb-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <div><p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#176bff]">{tr('Index des savoir-faire', 'Capabilities index', 'Índice de capacidades')}</p><h2 className="mt-5 font-heading text-4xl font-extrabold leading-[0.95] tracking-[-0.05em] sm:text-6xl">{tr('Partir du problème, pas de la tendance.', 'Start with the problem, not the trend.', 'Partir del problema, no de la tendencia.')}</h2></div>
+            <div><p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#8a6818]">{tr('Index des savoir-faire', 'Capabilities index', 'Índice de capacidades')}</p><h2 className="mt-5 font-heading text-4xl font-extrabold leading-[0.95] tracking-[-0.05em] sm:text-6xl">{tr('Partir du problème, pas de la tendance.', 'Start with the problem, not the trend.', 'Partir del problema, no de la tendencia.')}</h2></div>
             <p className="max-w-xl text-lg leading-8 text-[#274363]/65">{tr('La technologie arrive après le besoin. Chaque intervention est reliée à une situation concrète et à des livrables que vous pouvez utiliser.', 'Technology comes after the need. Every engagement connects to a concrete situation and usable deliverables.', 'La tecnología viene después de la necesidad. Cada intervención se vincula a una situación concreta y entregables útiles.')}</p>
           </div>
           <div>
@@ -194,11 +147,11 @@ function Expertise() {
               <article key={service.id} id={service.id} className="group relative scroll-mt-36 border-b border-[#071a3b]/20 py-12 sm:py-16">
                 {service.aliases.map((alias) => <span key={alias} id={alias} className="absolute top-0 scroll-mt-36" aria-hidden="true" />)}
                 <div className="grid gap-8 lg:grid-cols-[0.28fr_0.72fr_1fr] lg:gap-12">
-                  <div className="text-center lg:text-left"><p className="font-mono text-xs font-bold text-[#176bff]">{service.number}</p><p className="mt-3 text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#274363]/50">{service.label}</p><div className="flex justify-center lg:block"><ServiceVisual type={service.id} /></div></div>
+                  <div className="text-center lg:text-left"><p className="font-mono text-xs font-bold text-[#a27610]">{service.number}</p><p className="mt-3 text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#274363]/50">{service.label}</p><div className="flex justify-center lg:block"><ServiceVisual type={service.id} /></div></div>
                   <div><h3 className="font-heading text-3xl font-extrabold leading-[1] tracking-[-0.045em] sm:text-5xl">{service.title}</h3><p className="mt-6 text-base font-medium leading-7 text-[#274363]/65">{service.description}</p></div>
                   <div className="grid gap-8 sm:grid-cols-2">
-                    <div><p className="border-b border-[#071a3b]/15 pb-3 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[#176bff]">Situations typiques</p><ul className="mt-4 space-y-4 text-sm font-semibold leading-6 text-[#274363]/70">{service.situations.map((item) => <li key={item} className="flex gap-3"><span className="text-[#176bff]">→</span>{item}</li>)}</ul></div>
-                    <div><p className="border-b border-[#071a3b]/15 pb-3 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[#176bff]">Ce qui est livré</p><ul className="mt-4 space-y-4 text-sm font-semibold leading-6 text-[#274363]/70">{service.deliverables.map((item) => <li key={item} className="flex gap-3"><span className="text-[#176bff]">+</span>{item}</li>)}</ul></div>
+                    <div><p className="border-b border-[#071a3b]/15 pb-3 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[#8a6818]">{tr('Situations typiques', 'Typical situations', 'Situaciones típicas')}</p><ul className="mt-4 space-y-4 text-sm font-semibold leading-6 text-[#274363]/70">{service.situations.map((item) => <li key={item} className="flex gap-3"><span className="text-[#a27610]">→</span>{item}</li>)}</ul></div>
+                    <div><p className="border-b border-[#071a3b]/15 pb-3 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[#8a6818]">{tr('Ce qui est livré', 'Deliverables', 'Entregables')}</p><ul className="mt-4 space-y-4 text-sm font-semibold leading-6 text-[#274363]/70">{service.deliverables.map((item) => <li key={item} className="flex gap-3"><span className="text-[#a27610]">+</span>{item}</li>)}</ul></div>
                   </div>
                 </div>
               </article>
@@ -226,15 +179,15 @@ function Expertise() {
 
       <section className="bg-white px-5 py-24 sm:px-10 sm:py-32 lg:px-16">
         <div className="mx-auto max-w-[1000px]">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#176bff]">{tr('Questions fréquentes', 'Frequently asked questions', 'Preguntas frecuentes')}</p><h2 className="mt-5 font-heading text-4xl font-extrabold tracking-[-0.05em] sm:text-6xl">{tr('Avant de commencer.', 'Before we begin.', 'Antes de empezar.')}</h2>
-          <div className="mt-14 border-t border-[#071a3b]/20">{displayedFaqs.map(([question, answer], index) => <details key={question} className="group border-b border-[#071a3b]/20 py-6"><summary className="grid cursor-pointer list-none grid-cols-[2rem_1fr_auto] items-center gap-3 font-heading text-lg font-extrabold marker:content-none sm:text-xl"><span className="font-mono text-[10px] text-[#176bff]">0{index + 1}</span>{question}<span className="text-2xl font-light text-[#176bff] transition group-open:rotate-45">+</span></summary><p className="max-w-3xl pl-11 pr-10 pt-4 text-sm font-medium leading-7 text-[#274363]/65 sm:text-base">{answer}</p></details>)}</div>
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#8a6818]">{tr('Questions fréquentes', 'Frequently asked questions', 'Preguntas frecuentes')}</p><h2 className="mt-5 font-heading text-4xl font-extrabold tracking-[-0.05em] sm:text-6xl">{tr('Avant de commencer.', 'Before we begin.', 'Antes de empezar.')}</h2>
+          <div className="mt-14 border-t border-[#071a3b]/20">{displayedFaqs.map(([question, answer], index) => <details key={question} className="group border-b border-[#071a3b]/20 py-6"><summary className="grid cursor-pointer list-none grid-cols-[2rem_1fr_auto] items-center gap-3 font-heading text-lg font-extrabold marker:content-none sm:text-xl"><span className="font-mono text-[10px] text-[#a27610]">0{index + 1}</span>{question}<span className="text-2xl font-light text-[#081a33] transition group-open:rotate-45">+</span></summary><p className="max-w-3xl pl-11 pr-10 pt-4 text-sm font-medium leading-7 text-[#274363]/65 sm:text-base">{answer}</p></details>)}</div>
         </div>
       </section>
 
       <section className="bg-[#ffd21c] px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
         <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
           <div><p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-black/45">{tr('Prochaine étape', 'Next step', 'Siguiente paso')}</p><h2 className="mt-5 max-w-4xl font-heading text-4xl font-extrabold leading-[0.94] tracking-[-0.055em] text-[#071a3b] sm:text-6xl">{tr('Parlons du problème avant de parler technologie.', "Let's discuss the problem before the technology.", 'Hablemos del problema antes que de la tecnología.')}</h2></div>
-          <div><p className="text-base font-medium leading-7 text-black/60">{tr('30 minutes pour clarifier votre besoin et identifier une prochaine étape réaliste.', '30 minutes to clarify your needs and identify a realistic next step.', '30 minutos para aclarar tus necesidades e identificar el siguiente paso.')}</p><Link to="/reserver-un-appel" className="mt-7 inline-flex items-center gap-3 rounded-lg bg-[#071a3b] px-7 py-4 text-sm font-extrabold text-white transition hover:bg-[#176bff]">{tr('Réserver un appel', 'Book a call', 'Reservar una llamada')} <ArrowIcon /></Link></div>
+          <div><p className="text-base font-medium leading-7 text-black/60">{tr('30 minutes pour clarifier votre besoin et identifier une prochaine étape réaliste.', '30 minutes to clarify your needs and identify a realistic next step.', '30 minutos para aclarar tus necesidades e identificar el siguiente paso.')}</p><Link to="/reserver-un-appel" className="mt-7 inline-flex items-center gap-3 rounded-lg bg-[#081a33] px-7 py-4 text-sm font-extrabold text-white transition hover:bg-white hover:text-[#081a33]">{tr('Réserver un appel', 'Book a call', 'Reservar una llamada')} <ArrowIcon /></Link></div>
         </div>
       </section>
     </div>

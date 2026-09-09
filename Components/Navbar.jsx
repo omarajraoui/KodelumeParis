@@ -65,7 +65,7 @@ function Navbar() {
 
   return (
     <header className={`${pathname === '/' ? 'fixed' : 'sticky'} left-0 right-0 top-0 z-50 px-3 py-3 text-[#081a33]`}>
-      <nav className="relative mx-auto flex h-[72px] max-w-[1040px] items-center justify-between rounded-[20px] border border-white/70 bg-[#faf9f5]/88 px-4 shadow-[0_12px_34px_rgba(8,26,51,0.10)] backdrop-blur-2xl sm:px-6" aria-label="Navigation principale">
+      <nav className="navigation-glass relative mx-auto flex h-[72px] max-w-[1040px] items-center justify-between rounded-[20px] px-4 sm:px-6" aria-label="Navigation principale">
         <Link to="/" onClick={closeMenus} aria-label="Kodelume — Accueil">
           <Brand />
         </Link>
@@ -124,37 +124,37 @@ function Navbar() {
 
       <div id="mobile-navigation" className={`mx-auto mt-2 max-w-[1040px] rounded-[20px] border border-white/70 bg-[#faf9f5]/95 shadow-[0_14px_36px_rgba(8,26,51,0.12)] backdrop-blur-2xl lg:hidden ${mobileOpen ? 'block' : 'hidden'}`}>
         <div className="px-6 py-6">
-          <div className="flex items-center justify-between border-b border-blue-50 py-3"><span className="text-[10px] font-bold uppercase tracking-[.15em] text-[#071a3b]/40">{tr('Langue', 'Language', 'Idioma')}</span><LanguageSwitcher /></div>
-          <Link to="/" onClick={closeMenus} className="block border-b border-blue-50 py-4 text-lg font-extrabold">{tr('Accueil', 'Home', 'Inicio')}</Link>
+          <div className="flex items-center justify-between border-b border-[#081a33]/10 py-3"><span className="text-[10px] font-bold uppercase tracking-[.15em] text-[#071a3b]/40">{tr('Langue', 'Language', 'Idioma')}</span><LanguageSwitcher /></div>
+          <Link to="/" onClick={closeMenus} className="block border-b border-[#081a33]/10 py-4 text-lg font-extrabold">{tr('Accueil', 'Home', 'Inicio')}</Link>
 
-          <button type="button" onClick={() => toggleMobileSection('expertise')} className="flex w-full items-center justify-between border-b border-blue-50 py-4 text-left text-lg font-extrabold">
+          <button type="button" onClick={() => toggleMobileSection('expertise')} className="flex w-full items-center justify-between border-b border-[#081a33]/10 py-4 text-left text-lg font-extrabold">
             {tr('Expertise', 'Expertise', 'Experiencia')} <Chevron open={mobileSection === 'expertise'} />
           </button>
           {mobileSection === 'expertise' ? (
-            <div className="grid grid-cols-2 gap-2 border-b border-blue-50 py-4 text-sm font-semibold text-[#274363]/65">
+            <div className="grid grid-cols-2 gap-2 border-b border-[#081a33]/10 py-4 text-sm font-semibold text-[#274363]/65">
               {[
                 tr('Applications mobiles', 'Mobile applications', 'Aplicaciones móviles'),
                 tr('Logiciels métier', 'Business software', 'Software empresarial'),
                 'E-commerce', 'SaaS', 'UX/UI Design',
                 tr('IA générative', 'Generative AI', 'IA generativa'),
               ].map((item) => (
-                <Link key={item} to="/expertise" onClick={closeMenus} className="rounded-xl bg-blue-50 px-3 py-3">{item}</Link>
+                <Link key={item} to="/expertise" onClick={closeMenus} className="rounded-lg bg-[#efede6] px-3 py-3">{item}</Link>
               ))}
             </div>
           ) : null}
 
-          <button type="button" onClick={() => toggleMobileSection('references')} className="flex w-full items-center justify-between border-b border-blue-50 py-4 text-left text-lg font-extrabold">
+          <button type="button" onClick={() => toggleMobileSection('references')} className="flex w-full items-center justify-between border-b border-[#081a33]/10 py-4 text-left text-lg font-extrabold">
             {tr('Références', 'Work', 'Proyectos')} <Chevron open={mobileSection === 'references'} />
           </button>
           {mobileSection === 'references' ? (
-            <div className="grid grid-cols-2 gap-2 border-b border-blue-50 py-4 text-sm font-semibold text-[#274363]/65">
+            <div className="grid grid-cols-2 gap-2 border-b border-[#081a33]/10 py-4 text-sm font-semibold text-[#274363]/65">
               {[
                 ['Maison Benjelloun', '/projects/maison-benjelloun'],
                 ['Arriba Surf Camp', '/projects/arriba-surf-camp'],
-                [tr('Dashboard commerce', 'Commerce dashboard', 'Panel de comercio'), '/projects/ecommerce-dashboard'],
-                [tr('App flotte', 'Fleet app', 'App de flota'), '/projects/fleet-app'],
+                ['Sol Research Companion', '/projects/sol'],
+                ['ORA', '/projects/ora'],
               ].map(([item, destination]) => (
-                <Link key={item} to={destination} onClick={closeMenus} className="rounded-xl bg-blue-50 px-3 py-3">{item}</Link>
+                <Link key={item} to={destination} onClick={closeMenus} className="rounded-lg bg-[#efede6] px-3 py-3">{item}</Link>
               ))}
             </div>
           ) : null}

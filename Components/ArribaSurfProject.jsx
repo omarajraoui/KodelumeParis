@@ -16,9 +16,8 @@ function ArrowIcon() {
 }
 
 function ProductScreens({ tr }) {
-  const dates = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   return (
-    <section className="bg-[#f4f5f7] px-5 py-20 sm:px-10 sm:py-28 lg:px-16">
+    <section className="arriba-product-demo px-5 py-20 sm:px-10 sm:py-28 lg:px-16">
       <div className="mx-auto max-w-[1440px]">
         <div className="max-w-3xl">
           <p className="font-mono text-[10px] font-bold uppercase tracking-[.2em] text-[#e85524]">{tr('Le produit, en situation', 'The product in use', 'El producto en uso')}</p>
@@ -26,34 +25,18 @@ function ProductScreens({ tr }) {
         </div>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[1.12fr_.88fr]">
-          <article className="overflow-hidden border border-black/10 bg-white shadow-[0_24px_70px_rgba(28,32,40,.08)]">
-            <div className="flex items-center justify-between border-b border-black/10 px-5 py-4 font-mono text-[9px] font-bold uppercase tracking-[.14em] text-black/40"><span>01 / Booking flow</span><span>{tr('Interface réelle', 'Real interface', 'Interfaz real')}</span></div>
-            <div className="p-5 sm:p-8">
-              <h3 className="text-center font-heading text-2xl font-black sm:text-4xl">{tr('Réservez votre aventure Arriba', 'Book your Arriba adventure', 'Reserva tu aventura Arriba')}</h3>
-              <p className="mt-2 text-center text-sm text-black/50">{tr('7 jours inoubliables tout compris dès 500 €', '7 unforgettable all-inclusive days from €500', '7 días inolvidables todo incluido desde 500 €')}</p>
-              <div className="mt-8 grid gap-5 md:grid-cols-[1fr_.58fr]">
-                <div className="rounded-xl border border-black/10 p-5">
-                  <strong className="text-sm">1. {tr('Choisissez vos dates', 'Choose your dates', 'Elige tus fechas')}</strong>
-                  <div className="mt-5 overflow-hidden rounded-lg border border-black/15">
-                    <div className="grid grid-cols-2 border-b border-black/10 bg-[#f7f7f6] px-3 py-2 text-center text-xs font-black"><span>September 2026</span><span>October 2026</span></div>
-                    <div className="grid grid-cols-7 gap-y-3 px-3 py-3 text-center text-[10px] text-black/55">{dates.concat(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']).map((day, index) => <span key={`${day}-${index}`}>{day}</span>)}{Array.from({ length: 28 }, (_, index) => <span key={index} className={index % 7 === 0 ? 'font-black text-black' : 'text-black/25'}>{index + 1}</span>)}</div>
-                  </div>
-                </div>
-                <div className="rounded-xl border border-black/10 p-5">
-                  <strong className="text-sm">{tr('Résumé', 'Summary', 'Resumen')}</strong>
-                  <dl className="mt-5 space-y-3 rounded-lg border border-black/10 p-4 text-[11px] text-black/55"><div className="flex justify-between"><dt>{tr('Dates', 'Dates', 'Fechas')}</dt><dd>--- → ---</dd></div><div className="flex justify-between"><dt>{tr('Participants', 'Guests', 'Participantes')}</dt><dd>1</dd></div><div className="flex justify-between"><dt>{tr('Chambre', 'Room', 'Habitación')}</dt><dd>{tr('Mixte', 'Mixed', 'Mixta')}</dd></div><div className="flex justify-between border-t border-black/10 pt-3 font-black text-black"><dt>Total</dt><dd>---</dd></div></dl>
-                  <div className="mt-5 rounded-lg bg-[#d1d5dc] px-4 py-3 text-center text-xs font-black text-white">{tr('Confirmer la réservation', 'Confirm booking', 'Confirmar reserva')}</div>
-                </div>
-              </div>
-            </div>
+          <article className="arriba-booking-ui">
+            <header><span>ARRIBA / BOOKING</span><nav>01 {tr('Dates','Dates','Fechas')} <b>02 {tr('Séjour','Stay','Estancia')}</b> 03 {tr('Détails','Details','Detalles')}</nav><i>FR</i></header>
+            <div className="arriba-booking-ui__body"><div className="arriba-booking-ui__main"><small>{tr('ÉTAPE 01 · DISPONIBILITÉS', 'STEP 01 · AVAILABILITY', 'PASO 01 · DISPONIBILIDAD')}</small><h3>{tr('Choisissez votre semaine à Lombok.', 'Choose your week in Lombok.', 'Elige tu semana en Lombok.')}</h3><div className="arriba-booking-ui__weeks">{[['07','14 SEP'],['14','21 SEP'],['21','28 SEP']].map(([from,to],index)=><button key={from} className={index===1?'is-selected':''}><span>{from} → {to}</span><small>{index===2?tr('2 places','2 spots','2 plazas'):tr('Disponible','Available','Disponible')}</small></button>)}</div><div className="arriba-booking-ui__options"><article><small>{tr('VOYAGEURS','GUESTS','VIAJEROS')}</small><b>− &nbsp; 2 &nbsp; +</b></article><article><small>{tr('CHAMBRE','ROOM','HABITACIÓN')}</small><b>{tr('Partagée · 4 lits','Shared · 4 beds','Compartida · 4 camas')}⌄</b></article></div></div><aside><small>{tr('VOTRE SÉJOUR','YOUR STAY','TU ESTANCIA')}</small><strong>7 {tr('jours','days','días')} / 6 {tr('nuits','nights','noches')}</strong><dl><div><dt>{tr('Semaine','Week','Semana')}</dt><dd>14 → 21 SEP</dd></div><div><dt>{tr('Voyageurs','Guests','Viajeros')}</dt><dd>2</dd></div><div><dt>{tr('Villa + surf','Villa + surf','Villa + surf')}</dt><dd>{tr('Inclus','Included','Incluido')}</dd></div></dl><div><span>{tr('Acompte','Deposit','Depósito')}</span><b>300 €</b></div><button>{tr('Continuer','Continue','Continuar')} →</button></aside></div>
+            <footer><span>{tr('PAIEMENT SÉCURISÉ','SECURE CHECKOUT','PAGO SEGURO')}</span><span>{tr('6 LANGUES','6 LANGUAGES','6 IDIOMAS')}</span><span>{tr('PRÊT POUR MOBILE','MOBILE READY','LISTO PARA MÓVIL')}</span></footer>
           </article>
 
           <article className="group relative min-h-[520px] overflow-hidden bg-[#283b24] text-white shadow-[0_24px_70px_rgba(28,32,40,.12)]">
-            <img src="https://heroic-moxie-677368.netlify.app/assets/villa-Y5TV4JLP.jpg" alt={tr('Villa Arriba à Lombok', 'Arriba villa in Lombok', 'Villa Arriba en Lombok')} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition duration-1000 group-hover:scale-[1.025]" />
+            <img src="/arriba/homepage-1200.jpg" alt={tr('Expérience Arriba Surf Camp', 'Arriba Surf Camp experience', 'Experiencia Arriba Surf Camp')} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition duration-1000 group-hover:scale-[1.025]" />
             <div className="absolute inset-0 bg-black/42" />
             <div className="relative flex min-h-[520px] flex-col items-center justify-center p-8 text-center">
-              <span className="font-mono text-[9px] font-bold uppercase tracking-[.18em] text-white/65">02 / Immersive storytelling</span>
-              <h3 className="mt-6 font-heading text-5xl font-black leading-[.85] tracking-[-.06em] text-[#ff991e] sm:text-7xl">LE SURF CAMP</h3>
+              <span className="font-mono text-[9px] font-bold uppercase tracking-[.18em] text-white/65">02 / {tr('Narration immersive','Immersive storytelling','Narrativa inmersiva')}</span>
+              <h3 className="mt-6 font-heading text-5xl font-black leading-[.85] tracking-[-.06em] text-[#ff991e] sm:text-7xl">{tr('LE SURF CAMP','THE SURF CAMP','EL SURF CAMP')}</h3>
               <p className="mt-6 max-w-xl text-lg font-medium">{tr("28 voyageurs, une villa à Lombok, 7 jours d'immersion totale", '28 travellers, one Lombok villa, 7 days of total immersion', '28 viajeros, una villa en Lombok, 7 días de inmersión total')}</p>
               <p className="mt-4 max-w-lg text-sm leading-6 text-white/70">{tr('Chambres partagées, piscine privée et espaces communs ouverts.', 'Shared rooms, private pool and open communal spaces.', 'Habitaciones compartidas, piscina privada y espacios comunes abiertos.')}</p>
               <span className="mt-12 border-b border-white/55 pb-1 text-[10px] font-bold uppercase tracking-[.18em]">{tr('Découvrir', 'Discover', 'Descubrir')}</span>
@@ -112,7 +95,7 @@ function ArribaSurfProject() {
       <section className="bg-[#17140f] px-5 py-20 text-white sm:px-10 sm:py-28 lg:px-16">
         <div className="mx-auto grid max-w-[1320px] gap-14 lg:grid-cols-[.68fr_1.32fr] lg:items-center">
           <div><p className="font-mono text-[10px] font-bold uppercase tracking-[.2em] text-[#ff8a1d]">{tr('Le cœur du produit', 'Product core', 'Núcleo del producto')}</p><h2 className="mt-6 font-heading text-5xl font-black leading-[.9] tracking-[-.06em] sm:text-7xl">{tr('Une réservation sans rupture.', 'A seamless booking flow.', 'Una reserva sin fricción.')}</h2><p className="mt-6 max-w-xl text-lg leading-8 text-white/55">{tr('Sélection de semaine, participants, chambres, informations voyageurs, paiement et récapitulatif : le parcours transforme une offre complexe en décisions successives et lisibles.', 'Dates, guests, rooms, traveller details, payment and summary turn a complex offer into a clear sequence of decisions.', 'Fechas, viajeros, habitaciones, datos, pago y resumen convierten una oferta compleja en decisiones claras.')}</p></div>
-          <div className="arriba-booking-flow" aria-label="Parcours de réservation Arriba Surf Camp">
+          <div className="arriba-booking-flow" aria-label={tr('Parcours de réservation Arriba Surf Camp','Arriba Surf Camp booking journey','Proceso de reserva de Arriba Surf Camp')}>
             {[tr('Semaine', 'Dates', 'Fechas'), tr('Voyageurs', 'Guests', 'Viajeros'), tr('Chambre', 'Room', 'Habitación'), tr('Paiement', 'Payment', 'Pago'), tr('Confirmation', 'Confirmation', 'Confirmación')].map((step, index) => <div key={step}><span>0{index + 1}</span><i aria-hidden="true" /><strong>{step}</strong></div>)}
           </div>
         </div>

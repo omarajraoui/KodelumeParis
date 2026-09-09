@@ -12,7 +12,7 @@ function Footer() {
             {/* Office Cities */}
             <div className="text-center md:text-left">
               <p className="text-sm text-gray-600">
-                Paris • Nantes • Lyon
+                Paris
               </p>
             </div>
 

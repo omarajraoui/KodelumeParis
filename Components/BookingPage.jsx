@@ -118,7 +118,7 @@ function BookingPage() {
         robots="noindex,follow"
       />
 
-      <div className="mx-auto grid max-w-[1180px] overflow-hidden rounded-2xl border border-black/10 bg-[#f8f6f0] shadow-[0_20px_60px_rgba(32,30,24,0.07)] lg:min-h-[760px] lg:grid-cols-[0.72fr_1.28fr]">
+      <div className="mx-auto grid max-w-[1100px] overflow-hidden rounded-2xl border border-black/10 bg-[#f8f6f0] shadow-[0_20px_60px_rgba(32,30,24,0.07)] lg:min-h-[700px] lg:grid-cols-[0.65fr_1.35fr]">
         <aside className="flex flex-col justify-between border-b border-black/10 bg-[#f2efe6] p-7 text-center sm:p-10 lg:border-b-0 lg:border-r lg:p-12 lg:text-left">
           <div>
             <p className="flex items-center justify-center gap-3 text-[10px] font-extrabold uppercase tracking-[0.24em] text-black/50 lg:justify-start">
@@ -138,7 +138,7 @@ function BookingPage() {
           </div>
         </aside>
 
-        <main className="bg-[#fffefa] p-6 sm:p-10 lg:p-12">
+        <main className="bg-[#fffefa] p-6 sm:p-9 lg:p-10">
           <form action="https://formsubmit.co/omarajraoui4@gmail.com" method="POST" noValidate onSubmit={handleSubmit}>
             <input type="hidden" name="_subject" value="Nouvelle demande d’appel — KODELUME" />
             <input type="hidden" name="Date souhaitée" value={selectedDate.full} />
@@ -147,7 +147,7 @@ function BookingPage() {
 
             <fieldset>
               <legend className="text-xs font-extrabold uppercase tracking-[0.18em] text-black/45">{tr('1. Choisissez une date', '1. Choose a date', '1. Elige una fecha')}</legend>
-              <div className="mt-5 grid grid-cols-5 gap-2 sm:gap-3">
+              <div className="mt-4 grid grid-cols-5 gap-2">
                 {availableDates.map((date) => {
                   const selected = selectedDate.iso === date.iso;
                   return (
@@ -156,11 +156,11 @@ function BookingPage() {
                       type="button"
                       aria-pressed={selected}
                       onClick={() => setSelectedDate(date)}
-                      className={`relative flex min-h-20 flex-col items-center justify-center rounded-lg border px-1 transition sm:min-h-24 ${selected ? 'border-black bg-[#171714] text-white' : 'border-black/15 bg-[#f7f4ec] text-black/65 hover:border-black/45 hover:bg-white'}`}
+                      className={`relative flex min-h-16 flex-col items-center justify-center rounded-lg border px-1 transition sm:min-h-[72px] ${selected ? 'border-black bg-[#171714] text-white' : 'border-black/15 bg-[#f7f4ec] text-black/65 hover:border-black/45 hover:bg-white'}`}
                     >
                       {selected && <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-[#ffd21c]" />}
                       <span className="text-[9px] font-extrabold uppercase tracking-[0.12em] opacity-60">{date.weekday}</span>
-                      <span className="mt-1 text-xl font-black sm:text-2xl">{date.day}</span>
+                      <span className="mt-0.5 text-lg font-black sm:text-xl">{date.day}</span>
                       <span className="text-[9px] font-bold uppercase opacity-60">{date.month}</span>
                     </button>
                   );
@@ -168,7 +168,7 @@ function BookingPage() {
               </div>
             </fieldset>
 
-            <fieldset className="mt-9">
+            <fieldset className="mt-7">
               <legend className="text-xs font-extrabold uppercase tracking-[0.18em] text-black/45">{tr('2. Choisissez un créneau', '2. Choose a time', '2. Elige una hora')}</legend>
               <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {timeSlots.map((time) => {
@@ -179,7 +179,7 @@ function BookingPage() {
                       type="button"
                       aria-pressed={selected}
                       onClick={() => setSelectedTime(time)}
-                      className={`rounded-lg border px-3 py-3.5 text-sm font-extrabold transition ${selected ? 'border-black bg-[#171714] text-white' : 'border-black/15 bg-[#f7f4ec] text-black/60 hover:border-black/45 hover:bg-white hover:text-black'}`}
+                      className={`rounded-lg border px-3 py-3 text-xs font-extrabold transition ${selected ? 'border-black bg-[#171714] text-white' : 'border-black/15 bg-[#f7f4ec] text-black/60 hover:border-black/45 hover:bg-white hover:text-black'}`}
                     >
                       {time}
                     </button>

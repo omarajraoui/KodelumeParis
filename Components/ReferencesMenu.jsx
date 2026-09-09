@@ -5,10 +5,8 @@ import { useLanguage } from './language-state';
 const getProjects = (tr) => [
   ['Maison Benjelloun', 'maison-benjelloun', 'Shopify Headless · Three.js'],
   ['Arriba Surf Camp', 'arriba-surf-camp', tr('Réservation · Multilingue', 'Booking · Multilingual', 'Reservas · Multilingüe')],
-  ['E-commerce Dashboard', 'ecommerce-dashboard', tr('Plateforme métier', 'Business platform', 'Plataforma empresarial')],
-  ['Fleet Mobile App', 'fleet-app', tr('Application mobile', 'Mobile application', 'Aplicación móvil')],
-  ['GPT Quotation Bot', 'gpt-bot', tr('IA générative', 'Generative AI', 'IA generativa')],
-  ['SaaS CRM Tool', 'crm-saas', tr('Produit SaaS', 'SaaS product', 'Producto SaaS')],
+  ['Sol Research Companion', 'sol', 'RAG · Solana · Extension'],
+  ['ORA', 'ora', tr('Application mobile', 'Mobile app', 'Aplicación móvil')],
 ];
 
 function MenuArrow() {
@@ -25,8 +23,8 @@ function ReferencesMenu({ isVisible, onClose }) {
   if (!isVisible) return null;
 
   return (
-    <div className="absolute left-1/2 top-full w-[min(calc(100vw-2rem),1060px)] -translate-x-1/2 pt-3 text-[#081a33]">
-      <div className="grid grid-cols-[0.62fr_1.38fr] gap-9 rounded-[22px] border border-[#081a33]/10 bg-[#faf9f5]/97 p-7 shadow-[0_28px_64px_rgba(8,26,51,0.14)] backdrop-blur-2xl">
+    <div className="absolute left-1/2 top-full z-[60] isolate w-[min(calc(100vw-2rem),1060px)] -translate-x-1/2 pt-3 text-[#081a33]">
+      <div className="navigation-glass-panel grid grid-cols-[0.62fr_1.38fr] gap-9 rounded-[22px] p-7">
         <div className="flex flex-col justify-between rounded-[16px] bg-[#081a33] p-7 text-white">
           <p className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/50"><span className="h-2 w-2 bg-[#f4be32]" />{tr('Références', 'Work', 'Proyectos')}</p>
           <div className="mt-16">

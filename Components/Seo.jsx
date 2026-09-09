@@ -1,21 +1,24 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useLanguage } from './language-state';
 
 const SITE_URL = 'https://kodelume.com';
 const DEFAULT_IMAGE = `${SITE_URL}/kodelume-cover.jpg`;
 
 function Seo({ title, description, path = '/', image = DEFAULT_IMAGE, type = 'website', robots = 'index,follow', schema }) {
+  const { language } = useLanguage();
   const canonical = `${SITE_URL}${path === '/' ? '' : path}`;
   const absoluteImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+  const locale = language === 'en' ? 'en_GB' : language === 'es' ? 'es_ES' : 'fr_FR';
 
   return (
-    <Helmet htmlAttributes={{ lang: 'fr' }}>
+    <Helmet htmlAttributes={{ lang: language }}>
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="robots" content={robots} />
       <link rel="canonical" href={canonical} />
 
-      <meta property="og:locale" content="fr_FR" />
+      <meta property="og:locale" content={locale} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content="KODELUME" />
       <meta property="og:title" content={title} />

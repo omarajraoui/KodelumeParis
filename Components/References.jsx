@@ -21,12 +21,12 @@ function ArrowIcon() {
 
 function StrengthVisual({ index }) {
   if (index === 0) {
-    return <div className="relative mt-12 h-24 overflow-hidden border-y border-[#071a3b]/15"><span className="absolute -bottom-4 left-0 font-heading text-8xl font-black tracking-[-.1em] text-[#176bff] transition-transform duration-500 ease-out group-hover:translate-x-3">Aa</span><span className="absolute right-0 top-3 h-3 w-3 bg-[#ffd21c]" /></div>;
+    return <div className="relative mt-12 h-24 overflow-hidden border-y border-[#071a3b]/15"><span className="absolute -bottom-4 left-0 font-heading text-8xl font-black tracking-[-.1em] text-[#081a33] transition-transform duration-500 ease-out group-hover:translate-x-3">Aa</span><span className="absolute right-0 top-3 h-3 w-3 bg-[#f4be32]" /></div>;
   }
   if (index === 1) {
-    return <div className="relative mt-12 h-24 overflow-hidden border-y border-[#071a3b]/15"><span className="absolute left-2 top-1/2 h-16 w-16 -translate-y-1/2 rounded-full border border-[#176bff] transition-transform duration-500 ease-out group-hover:scale-125" /><span className="absolute left-10 top-1/2 h-12 w-12 -translate-y-1/2 rounded-full bg-[#176bff] mix-blend-multiply" /><span className="absolute left-[4.5rem] top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-[#ffd21c] mix-blend-multiply" /></div>;
+    return <div className="relative mt-12 h-24 overflow-hidden border-y border-[#071a3b]/15"><span className="absolute left-2 top-1/2 h-16 w-16 -translate-y-1/2 rounded-full border border-[#081a33] transition-transform duration-500 ease-out group-hover:scale-125" /><span className="absolute left-10 top-1/2 h-12 w-12 -translate-y-1/2 rounded-full bg-[#081a33] opacity-90" /><span className="absolute left-[4.5rem] top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-[#f4be32]" /></div>;
   }
-  return <div className="relative mt-12 flex h-24 items-end gap-2 overflow-hidden border-y border-[#071a3b]/15 px-2 pb-3"><span className="h-10 flex-1 bg-[#071a3b] transition-[height] duration-500 ease-out group-hover:h-16" /><span className="h-16 flex-1 bg-[#176bff] transition-[height] duration-500 ease-out group-hover:h-12" /><span className="h-7 flex-1 bg-[#ffd21c] transition-[height] duration-500 ease-out group-hover:h-20" /></div>;
+  return <div className="relative mt-12 flex h-24 items-end gap-2 overflow-hidden border-y border-[#071a3b]/15 px-2 pb-3"><span className="h-10 flex-1 bg-[#071a3b] transition-[height] duration-500 ease-out group-hover:h-16" /><span className="h-16 flex-1 bg-[#7a6840] transition-[height] duration-500 ease-out group-hover:h-12" /><span className="h-7 flex-1 bg-[#f4be32] transition-[height] duration-500 ease-out group-hover:h-20" /></div>;
 }
 
 function References() {
@@ -94,18 +94,22 @@ function References() {
             </div>
           </div>
         </article>
+        <div className="references-new-work grid gap-8 lg:grid-cols-2">
+          <Link to="/projects/sol" className="references-new-work__card references-new-work__card--sol"><span className="project-kicker"><span /> 03 / RAG · SOLANA</span><h2>Sol<br /><em>Research Companion.</em></h2><p>{tr('Une extension Chrome pour comprendre les signaux Solana à partir de sources vérifiables.', 'A Chrome extension for understanding Solana signals through verifiable sources.', 'Una extensión de Chrome para entender señales de Solana con fuentes verificables.')}</p><b>Voir le projet ↗</b></Link>
+          <Link to="/projects/ora" className="references-new-work__card references-new-work__card--ora"><span className="project-kicker"><span /> 04 / MOBILE · EN DÉVELOPPEMENT</span><h2>ORA<br /><em>Find your voice.</em></h2><p>{tr('Une application mobile pour pratiquer sa parole et rendre la confiance visible.', 'A mobile app for speaking practice and visible confidence progress.', 'Una aplicación móvil para practicar la expresión y hacer visible la confianza.')}</p><b>Voir le projet ↗</b></Link>
+        </div>
       </section>
 
       <section className="bg-[#f3f1eb] px-5 py-24 sm:px-10 sm:py-32 lg:px-16">
         <div className="mx-auto max-w-[1280px]">
           <div className="max-w-3xl">
-            <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#176bff]">{tr('Ce projet en un regard', 'Project at a glance', 'El proyecto de un vistazo')}</p>
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#8a6818]">{tr('Ce projet en un regard', 'Project at a glance', 'El proyecto de un vistazo')}</p>
             <h2 className="mt-6 font-heading text-4xl font-extrabold leading-[0.95] tracking-[-0.05em] sm:text-6xl">{tr('Une galerie pensée comme une expérience.', 'A gallery designed as an experience.', 'Una galería concebida como experiencia.')}</h2>
           </div>
           <div className="mt-14 grid border-t border-[#071a3b]/20 lg:grid-cols-3">
             {strengths.map(([title, description], index) => (
               <article key={title} className="group border-b border-[#071a3b]/20 py-8 lg:border-r lg:px-8 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
-                <span className="font-mono text-[10px] font-bold text-[#176bff]">0{index + 1}</span>
+                <span className="font-mono text-[10px] font-bold text-[#a27610]">0{index + 1}</span>
                 <h3 className="mt-12 font-heading text-2xl font-extrabold tracking-tight">{title}</h3>
                 <p className="mt-4 text-sm font-medium leading-6 text-[#274363]/60">{description}</p>
                 <StrengthVisual index={index} />
@@ -117,7 +121,7 @@ function References() {
 
       <section className="bg-gradient-to-b from-white via-[#faf9f5] to-[#f3f1eb] px-5 pb-36 pt-24 text-center sm:px-10 sm:pb-44 sm:pt-32 lg:px-16">
         <div className="mx-auto max-w-4xl">
-          <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#176bff]">{tr('Prochaine réalisation', 'Next project', 'Próximo proyecto')}</p>
+          <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#8a6818]">{tr('Prochaine réalisation', 'Next project', 'Próximo proyecto')}</p>
           <h2 className="mt-6 font-heading text-5xl font-extrabold leading-[0.94] tracking-[-0.055em] sm:text-7xl">{tr('Votre projet mérite sa propre scène.', 'Your project deserves its own stage.', 'Tu proyecto merece su propio escenario.')}</h2>
           <Link to="/reserver-un-appel" className="mt-9 inline-flex items-center gap-3 rounded-lg bg-[#081a33] px-7 py-4 text-sm font-extrabold text-white transition hover:-translate-y-1 hover:bg-[#f4be32] hover:text-[#081a33]">
             {tr('Démarrer un projet', 'Start a project', 'Iniciar un proyecto')} <ArrowIcon />

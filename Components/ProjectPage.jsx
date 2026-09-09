@@ -4,6 +4,8 @@ import axios from 'axios';
 import Loader from './Loader';
 import MaisonBenjellounProject from './MaisonBenjellounProject';
 import ArribaSurfProject from './ArribaSurfProject';
+import SolProject from './SolProject';
+import OraProject from './OraProject';
 import Seo from './Seo';
 import { useLanguage } from './language-state';
 
@@ -12,7 +14,9 @@ function ProjectPage() {
   const { slug } = useParams();
   const isMaisonBenjelloun = slug === 'maison-benjelloun';
   const isArribaSurfCamp = slug === 'arriba-surf-camp';
-  const isStaticProject = isMaisonBenjelloun || isArribaSurfCamp;
+  const isSol = slug === 'sol';
+  const isOra = slug === 'ora';
+  const isStaticProject = isMaisonBenjelloun || isArribaSurfCamp || isSol || isOra;
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,6 +50,9 @@ function ProjectPage() {
   if (isArribaSurfCamp) {
     return <ArribaSurfProject />;
   }
+
+  if (isSol) return <SolProject />;
+  if (isOra) return <OraProject />;
 
   if (loading) {
     return (

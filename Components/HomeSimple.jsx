@@ -21,6 +21,15 @@ function ArrowIcon() {
   );
 }
 
+function ServiceFigure({ type }) {
+  const figures = {
+    '01': <><rect x="12" y="18" width="96" height="58" rx="4" /><path d="M12 30h96M22 24h2M30 24h2M22 42h34M22 51h48M22 60h25M80 40h17v22H80z" /><circle cx="88.5" cy="51" r="3" /></>,
+    '02': <><circle cx="30" cy="47" r="13" /><circle cx="90" cy="31" r="9" /><circle cx="91" cy="68" r="12" /><path d="M43 45 81 33M42 52l38 13M30 34V20M90 40v16" /><path className="service-figure__pulse" d="M52 49h16" /></>,
+    '03': <><rect x="36" y="10" width="48" height="76" rx="9" /><path d="M50 20h20M43 31h34v34H43zM51 73h18" /><path className="service-figure__route" d="M20 67c13 0 12-18 22-18s10 12 20 12 12-22 36-22" /><circle cx="20" cy="67" r="3" /><circle cx="98" cy="39" r="3" /></>,
+  };
+  return <div className="service-figure" aria-hidden="true"><svg viewBox="0 0 120 96">{figures[type]}</svg><span /></div>;
+}
+
 function Home() {
   const { translate: tr } = useLanguage();
   const services = getServices(tr);
@@ -73,9 +82,10 @@ function Home() {
             </div>
 
             <div className="mt-16 grid w-full max-w-6xl gap-6 border-t border-[#071a3b]/20 pt-6 text-left lg:grid-cols-[0.34fr_0.66fr]">
-              <div className="flex flex-col justify-between gap-8 py-2">
-                <div><p className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-[#176bff]">{tr('Projet sélectionné', 'Selected project', 'Proyecto seleccionado')} / 01</p><h2 className="mt-4 font-heading text-4xl font-extrabold leading-[.9] tracking-[-.055em]">Maison<br />Benjelloun</h2></div>
-                <div><p className="max-w-xs text-sm font-medium leading-6 text-[#274363]/65">{tr('Galerie digitale immersive, Three.js et commerce Shopify Headless.', 'Immersive digital gallery, Three.js and Shopify Headless commerce.', 'Galería digital inmersiva, Three.js y comercio Shopify Headless.')}</p><Link to="/projects/maison-benjelloun" className="mt-5 inline-flex items-center gap-3 text-xs font-extrabold text-[#176bff]">{tr('Découvrir le projet', 'Explore the project', 'Descubrir el proyecto')} <ArrowIcon /></Link></div>
+              <div className="flex flex-col gap-6 py-2">
+                <div><p className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-[#8a6818]">{tr('Projet sélectionné', 'Selected project', 'Proyecto seleccionado')} / 01</p><h2 className="mt-4 font-heading text-4xl font-extrabold leading-[.9] tracking-[-.055em]">Maison<br />Benjelloun</h2></div>
+                <figure className="group relative aspect-[4/3] max-w-[290px] overflow-hidden bg-[#ddd4c6]"><img src="/maison-benjelloun/artwork-003-640.jpg" alt={tr('Œuvre présentée dans la galerie Maison Benjelloun', 'Artwork featured in the Maison Benjelloun gallery', 'Obra presentada en la galería Maison Benjelloun')} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]" /><figcaption className="absolute bottom-3 left-3 bg-[#faf9f5]/88 px-3 py-2 font-mono text-[8px] font-bold uppercase tracking-[.12em] backdrop-blur-md">Selected work / 03</figcaption></figure>
+                <div><p className="max-w-xs text-sm font-medium leading-6 text-[#274363]/65">{tr('Galerie digitale immersive, Three.js et commerce Shopify Headless.', 'Immersive digital gallery, Three.js and Shopify Headless commerce.', 'Galería digital inmersiva, Three.js y comercio Shopify Headless.')}</p><Link to="/projects/maison-benjelloun" className="mt-5 inline-flex items-center gap-3 text-xs font-extrabold text-[#081a33] underline decoration-[#f4be32] decoration-2 underline-offset-4">{tr('Découvrir le projet', 'Explore the project', 'Descubrir el proyecto')} <ArrowIcon /></Link></div>
               </div>
               <MaisonBenjellounShowcase compact />
             </div>
@@ -85,7 +95,7 @@ function Home() {
       <section className="py-24 sm:py-32" id="expertise-preview">
         <div className="mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#176bff]">01 / {tr('Nos expertises', 'Our expertise', 'Nuestra experiencia')}</p>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a6818]">01 / {tr('Nos expertises', 'Our expertise', 'Nuestra experiencia')}</p>
             <h2 className="mt-7 font-heading text-4xl font-extrabold leading-tight tracking-[-0.045em] sm:text-6xl">{tr("De l’idée au produit,", 'From idea to product,', 'De la idea al producto,')}<br />{tr('sans perdre le cap.', 'without losing direction.', 'sin perder el rumbo.')}</h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#274363]/60">{tr('Stratégie, design et technologie réunis sous une même direction pour avancer avec clarté et cohérence.', 'Strategy, design and technology under one direction to move forward with clarity and consistency.', 'Estrategia, diseño y tecnología bajo una misma dirección para avanzar con claridad y coherencia.')}</p>
           </div>
@@ -94,11 +104,12 @@ function Home() {
             {services.map(([number, title, description, tags]) => (
               <article key={number} className="group border-b border-[#071a3b]/15 p-7 transition-colors duration-300 hover:bg-[#f2f0ea] lg:border-r lg:last:border-r-0">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-black text-[#176bff]/45">{number}</span>
-                  <span className="text-[#176bff] transition-transform duration-300 group-hover:translate-x-1"><ArrowIcon /></span>
+                  <span className="text-xs font-black text-[#a27610]">{number}</span>
+                  <span className="text-[#081a33] transition-transform duration-300 group-hover:translate-x-1"><ArrowIcon /></span>
                 </div>
                 <h3 className="mt-12 font-heading text-2xl font-extrabold tracking-tight">{title}</h3>
                 <p className="mt-4 min-h-20 leading-7 text-[#274363]/60">{description}</p>
+                <ServiceFigure type={number} />
                 <p className="mt-6 border-t border-[#071a3b]/10 pt-4 font-mono text-[9px] font-bold uppercase tracking-[0.12em] text-[#274363]/50">{tags.join(' / ')}</p>
               </article>
             ))}
@@ -110,8 +121,8 @@ function Home() {
         <div className="mx-auto max-w-[1380px] px-5 sm:px-10 lg:px-16">
           <div className="grid gap-12 lg:grid-cols-[0.68fr_1.32fr] lg:items-start lg:gap-16">
           <div className="text-center lg:sticky lg:top-36 lg:text-left">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#176bff]">02 / {tr('La méthode', 'Method', 'Método')}</p>
-            <h2 className="mt-7 font-heading text-4xl font-extrabold leading-[1.02] tracking-[-0.05em] sm:text-6xl">{tr('Un système de delivery,', 'A delivery system,', 'Un sistema de entrega,')}<br /><span className="text-[#176bff]">{tr('pas une boîte noire.', 'not a black box.', 'no una caja negra.')}</span></h2>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a6818]">02 / {tr('La méthode', 'Method', 'Método')}</p>
+            <h2 className="mt-7 font-heading text-4xl font-extrabold leading-[1.02] tracking-[-0.05em] sm:text-6xl">{tr('Un système de delivery,', 'A delivery system,', 'Un sistema de entrega,')}<br /><span className="text-[#8a6818]">{tr('pas une boîte noire.', 'not a black box.', 'no una caja negra.')}</span></h2>
             <p className="mx-auto mt-6 max-w-lg text-base leading-7 text-[#274363]/60 sm:text-lg sm:leading-8 lg:mx-0">{tr('Chaque étape produit une décision, un livrable et un signal de validation. Vous savez ce qui avance, pourquoi, et ce qui vient ensuite.', 'Every stage produces a decision, a deliverable and a validation signal. You know what is moving forward, why, and what comes next.', 'Cada etapa produce una decisión, un entregable y una señal de validación. Sabes qué avanza, por qué y qué viene después.')}</p>
           </div>
           <DeliverySystem />
