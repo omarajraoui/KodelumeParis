@@ -1,0 +1,209 @@
+{
+  "name": "Memecoin Sentiment with Mock Market Analysis",
+  "nodes": [
+    {
+      "parameters": { "interval": 300, "unit": "seconds" },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.mocki.io/v2/YOUR_MOCK_ID1"
+      },
+      "name": "DexScreener API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [300, 200]
+    },
+    {
+      "parameters": {
+        "url": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=meme-token&order=market_cap_desc&per_page=10&page=1"
+      },
+      "name": "CoinGecko API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [300, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pairs = $node['DexScreener API'].json.pairs || [];\nconst coingecko = $node['CoinGecko API'].json || [];\nconst data = [];\nconst mockDiscussions = [\n  {\n    source: 'Insyder Crypto',\n    content: 'Traded PEPE at $0.01, SHIB trending in memecoin market. Discussed DeFi pumps.',\n    id: 'mock1'\n  },\n  {\n    source: 'leensx100',\n    content: 'Bought Solana at $150, sold at $180. ZombieCoin trending on DEX. Bullish market.',\n    id: 'mock2'\n  }\n];\nmockDiscussions.forEach(d => {\n  const coins = [];\n  const coinNames = [...pairs.map(p => p.baseToken.name.toLowerCase()), ...coingecko.map(cg => cg.name.toLowerCase())];\n  coinNames.forEach(name => {\n    if (d.content.toLowerCase().includes(name) && d.content.match(/trade|buy|sell|trending|market|up|down/i)) {\n      coins.push({ name, context: d.content.match(/trade|buy|sell|trending|market|up|down/i)[0] });\n    }\n  });\n  const topics = d.content.match(/memecoin|defi|solana|market|trends|trading|bullish/i) ? d.content.match(/memecoin|defi|solana|market|trends|trading|bullish/i).join(', ') : 'General crypto discussion';\n  const summary = `${d.source} discussion ${d.id} covered ${topics}. Coins: ${coins.map(c => `${c.name} (${c.context})`).join(', ') || 'None'}.`;\n  data.push({ source: d.source, id: d.id, coins, topics, summary });\n});\nreturn data.map(d => ({ json: d }));"
+      },
+      "name": "Mock Market Analysis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [350, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pairs = $node['DexScreener API'].json.pairs || [];\nconst coingecko = $node['CoinGecko API'].json || [];\nconst data = [];\nif (!pairs.length && !coingecko.length) {\n  return [{ json: { error: 'No token data' } }];\n}\npairs.forEach(pair => {\n  const token = pair.baseToken;\n  const cgToken = coingecko.find(cg => cg.name.toLowerCase() === token.name.toLowerCase() || cg.symbol.toLowerCase() === token.symbol.toLowerCase()) || {};\n  const sentiment = {\n    twitter: 0,\n    telegram: 0,\n    news: 0\n  };\n  const content_type = 'none';\n  const potential_score = Math.random() * 0.5 + 0.5;\n  const risk_score = Math.random() * 0.4 + 0.6;\n  if (risk_score > 0.7) {\n    data.push({\n      name: token.name,\n      address: token.address,\n      narrative: pair.info?.description || 'Generic Meme',\n      website: cgToken.homepage?.[0] || 'N/A',\n      twitter_handle: cgToken.twitter_screen_name || 'N/A',\n      twitter_content_type: content_type,\n      market_cap_range: cgToken.market_cap ? `${cgToken.low_24h?.usd || 0}-${cgToken.high_24h?.usd || 0} USD` : 'N/A',\n      potential_score,\n      risk_score,\n      sentiment\n    });\n  }\n});\nreturn data.map(d => ({ json: d }));"
+      },
+      "name": "Score Tokens",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            { "value1": "={{$node['Score Tokens'].json.potential_score}}", "operation": "larger", "value2": 0.85 }
+          ]
+        }
+      },
+      "name": "High Score Filter",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [800, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            { "value1": "={{$node['Score Tokens'].json.potential_score}}", "operation": "largerEqual", "value2": 0.65 },
+            { "value1": "={{$node['Score Tokens'].json.potential_score}}", "operation": "smaller", "value2": 0.85 }
+          ]
+        }
+      },
+      "name": "Medium Score Filter",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [800, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const tokens = $node['Score Tokens'].json;\nconst marketAnalysis = $node['Mock Market Analysis'].json || [];\nconst successfulCoins = ['DOGE', 'SHIB', 'PEPE', 'BONK', 'FLOKI'];\nconst themes = ['Animal Kingdom', 'Meme Legends'];\nconst data = [];\nif (!tokens.name) {\n  return [{ json: { error: 'No token data' } }];\n}\nconst marketSummary = marketAnalysis.length ? marketAnalysis.map(s => s.summary).join(' ') : 'No recent market insights.';\nsuccessfulCoins.forEach(coin => {\n  const ticker = `W${coin.slice(0, 3).toUpperCase()}`;\n  data.push({\n    name: `Wrapped${coin}`,\n    ticker: ticker.length <= 5 ? ticker : coin.slice(0, 4).toUpperCase(),\n    narrative: `Wrapped ${coin} for DeFi in ${themes[0]}, inspired by: ${marketSummary.slice(0, 50)}...`,\n    content_ideas: [\n      `🚀 ${ticker} is here! Stake for ${themes[0]} rewards! #memecoin`,\n      `Join ${coin} in ${themes[0]} with ${ticker}! #${coin}`\n    ]\n  });\n});\ndata.push({\n  name: `Meme${tokens.name}`,\n  ticker: tokens.name.slice(0, 4).toUpperCase(),\n  narrative: `${tokens.narrative} in ${themes[1]}, inspired by: ${marketSummary.slice(0, 50)}...`,\n  content_ideas: [\n    `🌟 ${tokens.name} is live! ${themes[1]} vibes! #memecoin`,\n    `Hop on ${tokens.name}! #${tokens.narrative.replace(' ', '')}`\n  ]\n});\nreturn data.map(d => ({ json: d }));"
+      },
+      "name": "Generate Coin Ideas",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1000, 150]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { data: 'mock_logo_data' }, binary: { data: { data: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==' } } }];"
+      },
+      "name": "Mock Generate Logo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1200, 150]
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "folderId": "YOUR_FOLDER_ID",
+        "fileName": "={{$node['Generate Coin Ideas'].json.name + '_logo.png'}}",
+        "binaryData": "data",
+        "binaryPropertyName": "data"
+      },
+      "name": "Save to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [1400, 150],
+      "credentials": { "googleDriveOAuth2Api": { "name": "Google Drive OAuth2" } }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "sheetId": "YOUR_SHEET_ID",
+        "range": "Sheet1!A:I",
+        "values": [
+          [
+            "={{$node['Generate Coin Ideas'].json.name}}",
+            "={{$node['Generate Coin Ideas'].json.ticker}}",
+            "={{$node['Generate Coin Ideas'].json.narrative}}",
+            "={{$node['Score Tokens'].json.potential_score}}",
+            "={{$node['Score Tokens'].json.website}}",
+            "={{$node['Score Tokens'].json.twitter_handle}}",
+            "={{$node['Score Tokens'].json.twitter_content_type}}",
+            "={{$node['Score Tokens'].json.market_cap_range}}",
+            "={{$node['Mock Market Analysis'].json.summary || 'No market insights'}}"
+          ]
+        ]
+      },
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [1500, 200],
+      "credentials": {
+        "googleSheetsOAuth2Api": { "name": "Google Sheets OAuth2" }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "sheetId": "YOUR_SHEET_ID",
+        "range": "Errors!A:B",
+        "values": [
+          [
+            "={{$node['Score Tokens'].json.error || $node['Generate Coin Ideas'].json.error || $node['Mock Market Analysis'].json.error || 'Unknown'}}",
+            "={{new Date().toISOString()}}"
+          ]
+        ]
+      },
+      "name": "Log Errors",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [700, 400],
+      "credentials": {
+        "googleSheetsOAuth2Api": { "name": "Google Sheets OAuth2" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { tweet: $node['Generate Coin Ideas'].json.content_ideas[0].slice(0, 280) } }];"
+      },
+      "name": "Mock Twitter Post",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1600, 150]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {"node": "DexScreener API", "type": "main", "index": 0},
+          {"node": "CoinGecko API", "type": "main", "index": 0},
+          {"node": "Mock Market Analysis", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "DexScreener API": {
+      "main": [[{"node": "Score Tokens", "type": "main", "index": 0}]]
+    },
+    "CoinGecko API": {
+      "main": [[{"node": "Score Tokens", "type": "main", "index": 0}]]
+    },
+    "Mock Market Analysis": {
+      "main": [[{"node": "Generate Coin Ideas", "type": "main", "index": 0}]]
+    },
+    "Score Tokens": {
+      "main": [
+        [
+          {"node": "High Score Filter", "type": "main", "index": 0},
+          {"node": "Medium Score Filter", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "High Score Filter": {
+      "main": [[{"node": "Generate Coin Ideas", "type": "main", "index": 0}]]
+    },
+    "Medium Score Filter": {
+      "main": [[{"node": "Generate Coin Ideas", "type": "main", "index": 0}]]
+    },
+    "Generate Coin Ideas": {
+      "main": [[{"node": "Mock Generate Logo", "type": "main", "index": 0}]]
+    },
+    "Mock Generate Logo": {
+      "main": [[{"node": "Save to Google Drive", "type": "main", "index": 0}]]
+    },
+    "Save to Google Drive": {
+      "main": [[{"node": "Log to Google Sheets", "type": "main", "index": 0}]]
+    },
+    "Log to Google Sheets": {
+      "main": [[{"node": "Mock Twitter Post", "type": "main", "index": 0}]]
+    }
+  }
+}
